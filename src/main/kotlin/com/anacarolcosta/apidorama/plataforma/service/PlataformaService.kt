@@ -1,10 +1,7 @@
 package com.anacarolcosta.apidorama.plataforma.service
 
-import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaRequest
-import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.RequestBody
 
 @Service
 class PlataformaService {
@@ -22,19 +19,21 @@ class PlataformaService {
         return plataformas.filter { it.id == id }.first()
     }
 
-    fun createPlataforma(plataforma: PostPlataformaRequest) {
+    fun createPlataforma(plataforma: PlataformaModel) {
         val id = if (plataformas.isEmpty()) {
             1
         } else {
-            plataformas.last().id.toInt() +1
+            plataformas.last().id!!.toInt() +1
         }.toString()
 
-        plataformas.add(PlataformaModel(id, plataforma.nomePlataforma))
+        plataforma.id = id
+
+        plataformas.add(plataforma)
     }
 
-    fun updatePlataforma(id: String, @RequestBody plataforma: PutPlataformaRequest) {
-        plataformas.filter { it.id == id }.first().let {
-            it.nomePlataforma
+    fun updatePlataforma(plataforma: PlataformaModel) {
+        plataformas.filter { it.id == plataforma.id }.first().let {
+            it.nomePlataforma = plataforma.nomePlataforma
         }
     }
 

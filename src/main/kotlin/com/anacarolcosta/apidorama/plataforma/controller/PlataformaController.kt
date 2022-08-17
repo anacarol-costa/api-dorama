@@ -2,6 +2,7 @@ package com.anacarolcosta.apidorama.controller
 
 import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
+import com.anacarolcosta.apidorama.plataforma.extension.toPlataformaModel
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import com.anacarolcosta.apidorama.plataforma.service.PlataformaService
 import org.springframework.http.HttpStatus
@@ -32,17 +33,16 @@ class PlataformaController(
         return plataformaService.getPlataforma(id)
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createPlataforma(@RequestBody plataforma: PostPlataformaRequest) {
-        plataformaService.createPlataforma(plataforma)
+        plataformaService.createPlataforma(plataforma.toPlataformaModel())
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updatePlataforma(@PathVariable id: String, @RequestBody plataforma: PutPlataformaRequest) {
-        plataformaService.updatePlataforma(id, plataforma)
+        plataformaService.updatePlataforma(plataforma.toPlataformaModel(id))
     }
 
     @DeleteMapping("/{id}")
