@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
@@ -21,7 +22,10 @@ class PlataformaController {
     private val plataformas = mutableListOf<PlataformaModel>()
 
     @GetMapping
-    fun getAllPlataforma(): MutableList<PlataformaModel> {
+    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaModel> {
+        nomePlataforma?.let {
+            return plataformas.filter { it.nomePlataforma.contains(nomePlataforma, ignoreCase = true) }
+        }
         return plataformas
     }
 
