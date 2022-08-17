@@ -4,6 +4,7 @@ import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaR
 import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -48,5 +49,11 @@ class PlataformaController {
         plataformas.filter { it.id == id }.first().let {
             it.nomePlataforma = plataforma.nomePlataforma
         }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deletePlataforma(@PathVariable id: String) {
+        plataformas.removeIf { it.id == id }
     }
 }
