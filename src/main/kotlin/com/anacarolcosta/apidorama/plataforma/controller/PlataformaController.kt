@@ -3,6 +3,7 @@ package com.anacarolcosta.apidorama.controller
 import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.plataforma.service.PlataformaService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,47 +18,36 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("plataformas")
-class PlataformaController {
-
-    private val plataformas = mutableListOf<PlataformaModel>()
+class PlataformaController(
+    private val plataformaService: PlataformaService
+) {
 
     @GetMapping
     fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaModel> {
-        nomePlataforma?.let {
-            return plataformas.filter { it.nomePlataforma.contains(nomePlataforma, ignoreCase = true) }
-        }
-        return plataformas
+        return plataformaService.getAllPlataforma(nomePlataforma)
     }
 
     @GetMapping("/{id}")
     fun getPlataforma(@PathVariable id: String): PlataformaModel {
-        return plataformas.filter { it.id == id }.first()
+        return plataformaService.getPlataforma(id)
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody plataforma: PostPlataformaRequest) {
-        val id =  if (plataformas.isEmpty()) {
-            1
-        } else {
-            plataformas.last().id.toInt() + 1
-        }.toString()
-
-        plataformas.add(PlataformaModel(id, plataforma.nomePlataforma))
+    fun createPlataforma(@RequestBody plataforma: PostPlataformaRequest) {
+        plataformaService.createPlataforma(plataforma)
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updatePlataforma(@PathVariable id: String, @RequestBody plataforma: PutPlataformaRequest) {
-        plataformas.filter { it.id == id }.first().let {
-            it.nomePlataforma = plataforma.nomePlataforma
-        }
+        plataformaService.updatePlataforma(id, plataforma)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deletePlataforma(@PathVariable id: String) {
-        plataformas.removeIf { it.id == id }
+        return plataformaService.deletePlataforma(id)
     }
 }
