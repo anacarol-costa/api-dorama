@@ -10,7 +10,7 @@ class PlataformaService(
 ) {
     fun getAllPlataforma(nomePlataforma: String?): List<PlataformaModel>{
         nomePlataforma?.let {
-            return plataformaRepository.findByNameContaining(it)
+            return plataformaRepository.findByNomePlataformaContaining(it)
         }
         return plataformaRepository.findAll().toList()
     }
