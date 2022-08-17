@@ -1,4 +1,4 @@
-package com.anacarolcosta.apidorama.controller.request
+package com.anacarolcosta.apidorama.plataforma.controller.request
 
 data class PostPlataformaRequest (
     var nomePlataforma: String

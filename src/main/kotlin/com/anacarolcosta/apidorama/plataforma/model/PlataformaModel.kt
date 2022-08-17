@@ -1,4 +1,4 @@
-package com.anacarolcosta.apidorama.model
+package com.anacarolcosta.apidorama.plataforma.model
 
 data class PlataformaModel (
     var id: String,
