@@ -1,43 +1,39 @@
 package com.anacarolcosta.apidorama.plataforma.service
 
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.plataforma.repository.PlataformaRepository
 import org.springframework.stereotype.Service
 
 @Service
-class PlataformaService {
-
-    private val plataformas = mutableListOf<PlataformaModel>()
-
+class PlataformaService(
+    private val plataformaRepository: PlataformaRepository
+) {
     fun getAllPlataforma(nomePlataforma: String?): List<PlataformaModel>{
         nomePlataforma?.let {
-            return plataformas.filter { it.nomePlataforma.contains(nomePlataforma, ignoreCase = true) }
+            return plataformaRepository.findByNameContaining(it)
         }
-        return plataformas
+        return plataformaRepository.findAll().toList()
     }
 
     fun getPlataforma(id: Int): PlataformaModel {
-        return plataformas.filter { it.id == id }.first()
+        return plataformaRepository.findById(id).orElseThrow()
     }
 
     fun createPlataforma(plataforma: PlataformaModel) {
-        val id = if (plataformas.isEmpty()) {
-            1
-        } else {
-            plataformas.last().id!!.toInt() +1
-        }.toString()
-
-        plataforma.id = id
-
-        plataformas.add(plataforma)
+        plataformaRepository.save(plataforma)
     }
 
     fun updatePlataforma(plataforma: PlataformaModel) {
-        plataformas.filter { it.id == plataforma.id }.first().let {
-            it.nomePlataforma = plataforma.nomePlataforma
-        }
+       if (!plataformaRepository.existsById(plataforma.id!!)){
+           throw Exception()
+       }
+        plataformaRepository.save(plataforma)
     }
 
     fun deletePlataforma(id: Int) {
-        plataformas.removeIf { it.id == id }
+        if (!plataformaRepository.existsById(id)){
+            throw Exception()
+        }
+        plataformaRepository.deleteById(id)
     }
 }
