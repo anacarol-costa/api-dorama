@@ -15,7 +15,7 @@ class PlataformaService {
         return plataformas
     }
 
-    fun getPlataforma(id: String): PlataformaModel {
+    fun getPlataforma(id: Int): PlataformaModel {
         return plataformas.filter { it.id == id }.first()
     }
 
@@ -37,7 +37,7 @@ class PlataformaService {
         }
     }
 
-    fun deletePlataforma(id: String) {
+    fun deletePlataforma(id: Int) {
         plataformas.removeIf { it.id == id }
     }
 }

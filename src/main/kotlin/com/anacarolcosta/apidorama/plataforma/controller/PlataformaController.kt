@@ -29,7 +29,7 @@ class PlataformaController(
     }
 
     @GetMapping("/{id}")
-    fun getPlataforma(@PathVariable id: String): PlataformaModel {
+    fun getPlataforma(@PathVariable id: Int): PlataformaModel {
         return plataformaService.getPlataforma(id)
     }
 
@@ -41,13 +41,13 @@ class PlataformaController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updatePlataforma(@PathVariable id: String, @RequestBody plataforma: PutPlataformaRequest) {
+    fun updatePlataforma(@PathVariable id: Int, @RequestBody plataforma: PutPlataformaRequest) {
         plataformaService.updatePlataforma(plataforma.toPlataformaModel(id))
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deletePlataforma(@PathVariable id: String) {
+    fun deletePlataforma(@PathVariable id: Int) {
         return plataformaService.deletePlataforma(id)
     }
 }

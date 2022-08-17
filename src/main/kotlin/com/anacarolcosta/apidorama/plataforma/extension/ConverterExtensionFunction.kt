@@ -5,9 +5,9 @@ import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRe
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 
 fun PostPlataformaRequest.toPlataformaModel(): PlataformaModel {
-    return PlataformaModel(id = null, nomePlataforma = this.nomePlataforma)
+    return PlataformaModel(nomePlataforma = this.nomePlataforma)
 }
 
-fun PutPlataformaRequest.toPlataformaModel(id: String): PlataformaModel {
+fun PutPlataformaRequest.toPlataformaModel(id: Int): PlataformaModel {
     return PlataformaModel(id = id, nomePlataforma = this.nomePlataforma)
 }
