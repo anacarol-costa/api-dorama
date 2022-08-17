@@ -14,14 +14,22 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("plataformas")
 class PlataformaController {
 
+    val plataformas = mutableListOf<PlataformaModel>()
+
     @GetMapping
-    fun getPlataforma(): PlataformaModel {
-        return PlataformaModel("1", "Netflix")
+    fun getPlataforma(): MutableList<PlataformaModel> {
+        return plataformas
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody plataforma: PostPlataformaRequest) {
-        println(plataforma)
+        val id =  if (plataformas.isEmpty()) {
+            1
+        } else {
+            plataformas.last().id.toInt() + 1
+        }.toString()
+
+        plataformas.add(PlataformaModel(id, plataforma.nomePlataforma))
     }
 }
