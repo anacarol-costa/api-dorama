@@ -1,6 +1,6 @@
 package com.anacarolcosta.apidorama.plataforma.service
 
-import com.anacarolcosta.apidorama.plataforma.exception.NotFoundException
+import com.anacarolcosta.apidorama.exception.NotFoundException
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import com.anacarolcosta.apidorama.plataforma.repository.PlataformaRepository
 import org.springframework.stereotype.Service
