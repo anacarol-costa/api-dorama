@@ -1,5 +1,6 @@
 package com.anacarolcosta.apidorama.plataforma.service
 
+import com.anacarolcosta.apidorama.plataforma.exception.NotFoundException
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import com.anacarolcosta.apidorama.plataforma.repository.PlataformaRepository
 import org.springframework.stereotype.Service
@@ -16,7 +17,7 @@ class PlataformaService(
     }
 
     fun getByIdPlataforma(id: Int): PlataformaModel {
-        return plataformaRepository.findById(id).orElseThrow{Exception("Esta plataforma não existe!")}
+        return plataformaRepository.findById(id).orElseThrow{ NotFoundException("Plataforma [${id}] não existe!", "ML-0001") }
     }
 
     fun createPlataforma(plataforma: PlataformaModel) {

@@ -10,14 +10,14 @@ import org.springframework.web.context.request.WebRequest
 @ControllerAdvice
 class PlataformaControllerAdvice {
 
-    @ExceptionHandler(Exception::class)
-    fun handleExceptionPlataforma(ex: java.lang.Exception,  request: WebRequest): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(NotFoundException::class)
+    fun handleExceptionPlataforma(ex: NotFoundException,  request: WebRequest): ResponseEntity<ErrorResponse> {
         val erro = ErrorResponse(
-            httpCode = 400,
-            message = "Esta plataforma não existe!",
-            internalCode = "0001",
+            HttpStatus.NOT_FOUND.value(),
+            ex.message,
+            ex.errorCode,
             errors = null
         )
-        return ResponseEntity(erro, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(erro, HttpStatus.NOT_FOUND)
     }
 }
