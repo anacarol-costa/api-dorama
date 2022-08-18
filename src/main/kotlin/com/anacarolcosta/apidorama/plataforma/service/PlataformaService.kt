@@ -15,8 +15,8 @@ class PlataformaService(
         return plataformaRepository.findAll().toList()
     }
 
-    fun getPlataforma(id: Int): PlataformaModel {
-        return plataformaRepository.findById(id).orElseThrow()
+    fun getByIdPlataforma(id: Int): PlataformaModel {
+        return plataformaRepository.findById(id).orElseThrow{Exception("Esta plataforma não existe!")}
     }
 
     fun createPlataforma(plataforma: PlataformaModel) {

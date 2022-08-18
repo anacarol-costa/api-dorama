@@ -30,7 +30,7 @@ class PlataformaController(
 
     @GetMapping("/{id}")
     fun getPlataforma(@PathVariable id: Int): PlataformaModel {
-        return plataformaService.getPlataforma(id)
+        return plataformaService.getByIdPlataforma(id)
     }
 
     @PostMapping
