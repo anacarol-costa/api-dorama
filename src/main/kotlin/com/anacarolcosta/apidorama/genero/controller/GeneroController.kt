@@ -2,6 +2,7 @@ package com.anacarolcosta.apidorama.genero.controller
 
 import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
 import com.anacarolcosta.apidorama.drama.model.DramaModel
+import com.anacarolcosta.apidorama.extension.toGeneroModel
 import com.anacarolcosta.apidorama.genero.controller.request.PostGeneroRequest
 import com.anacarolcosta.apidorama.genero.controller.request.PutGeneroRequest
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
@@ -27,13 +28,13 @@ class GeneroController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createGenero(@RequestBody genero: PostGeneroRequest) {
-        generoService.createGenero(genero)
+        generoService.createGenero(genero.toGeneroModel())
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateGenero(@PathVariable id: Int, @RequestBody genero: PutGeneroRequest) {
-        generoService.updateGenero(id, genero)
+        generoService.updateGenero(genero.toGeneroModel(id))
     }
 
     @DeleteMapping("/{id}")

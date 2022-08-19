@@ -1,46 +1,39 @@
 package com.anacarolcosta.apidorama.genero.service
 
-import com.anacarolcosta.apidorama.genero.controller.request.PostGeneroRequest
-import com.anacarolcosta.apidorama.genero.controller.request.PutGeneroRequest
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
+import com.anacarolcosta.apidorama.genero.repository.GeneroRepository
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
 
 @Service
-class GeneroService {
-
-    val generos = mutableListOf<GeneroModel>()
-
-    fun getAllGenero(@RequestParam tipoGenero: String?): List<GeneroModel> {
+class GeneroService(
+    private val generoRepository: GeneroRepository
+) {
+    fun getAllGenero(tipoGenero: String?): List<GeneroModel> {
         tipoGenero?.let {
-            return generos.filter { it.tipoGenero.contains(tipoGenero, ignoreCase = true) }
+            return generoRepository.findByTipoGeneroContaining(it)
         }
-        return generos
+        return generoRepository.findAll().toList()
     }
 
-    fun getByIdGenero(@PathVariable id: Int): GeneroModel {
-        return generos.filter { it.id == id }.first()
+    fun getByIdGenero(id: Int): GeneroModel {
+        return generoRepository.findById(id).orElseThrow()
     }
 
-    fun createGenero(@RequestBody genero: PostGeneroRequest) {
-        val id = if (generos.isEmpty()) {
-            1
-        } else {
-            generos.last().id!! + 1
+    fun createGenero(genero: GeneroModel) {
+        generoRepository.save(genero)
+    }
+
+    fun updateGenero(genero: GeneroModel) {
+       if (!generoRepository.existsById(genero.id!!)){
+           throw Exception()
+       }
+        generoRepository.save(genero)
+    }
+
+    fun deleteGenero(id: Int) {
+        if (!generoRepository.existsById(id!!)){
+            throw Exception()
         }
-
-        generos.add(GeneroModel(id, genero.tipoGenero))
-    }
-
-    fun updateGenero(@PathVariable id: Int, @RequestBody genero: PutGeneroRequest) {
-        generos.filter { it.id == id }.first().let {
-            it.tipoGenero = genero.tipoGenero
-        }
-    }
-
-    fun deleteGenero(@PathVariable id: Int) {
-        generos.removeIf { it.id == id }
+        generoRepository.deleteById(id)
     }
 }

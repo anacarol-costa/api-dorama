@@ -4,6 +4,7 @@ import com.anacarolcosta.apidorama.drama.controller.request.PostDramaRequest
 import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
 import com.anacarolcosta.apidorama.drama.model.DramaModel
 import com.anacarolcosta.apidorama.drama.service.DramaService
+import com.anacarolcosta.apidorama.extension.toDramaModel
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -34,13 +35,13 @@ class DramaController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createDrama(@RequestBody drama: PostDramaRequest) {
-        dramaService.createDrama(drama)
+        dramaService.createDrama(drama.toDramaModel())
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
-      dramaService.updateDrama(id, drama)
+      dramaService.updateDrama(drama.toDramaModel(id))
     }
 
     @DeleteMapping("/{id}")

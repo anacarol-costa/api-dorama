@@ -1,52 +1,40 @@
 package com.anacarolcosta.apidorama.drama.service
 
-import com.anacarolcosta.apidorama.drama.controller.request.PostDramaRequest
-import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
 import com.anacarolcosta.apidorama.drama.model.DramaModel
+import com.anacarolcosta.apidorama.drama.repository.DramaRepository
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
 
 @Service
-class DramaService {
+class DramaService(
+    private val dramaRepository: DramaRepository
+) {
 
-    val dramas = mutableListOf<DramaModel>()
-
-    fun getAllDrama(@RequestParam titulo: String?): List<DramaModel> {
+    fun getAllDrama(titulo: String?): List<DramaModel> {
         titulo?.let {
-            return dramas.filter { it.titulo.contains(titulo, ignoreCase = true) }
+            return dramaRepository.findByTituloContaining(it)
         }
-        return dramas
+        return dramaRepository.findAll().toList()
     }
 
-    fun getByIdDrama(@PathVariable id: Int): DramaModel {
-        return dramas.filter { it.id == id }.first()
+    fun getByIdDrama(id: Int): DramaModel {
+        return dramaRepository.findById(id).orElseThrow()
     }
 
-    fun createDrama(@RequestBody drama: PostDramaRequest) {
-        val id = if (dramas.isEmpty()) {
-            1
-        } else {
-            dramas.last().id!! + 1
+    fun createDrama(drama: DramaModel) {
+        dramaRepository.save(drama)
+    }
+
+    fun updateDrama(drama: DramaModel) {
+        if (!dramaRepository.existsById(drama.id!!)){
+            throw Exception()
         }
-
-        dramas.add(DramaModel(id, drama.titulo, drama.anoLancamento, drama.temporadas, drama.quantidadeEpisodios, drama.genero, drama.plataforma))
+       dramaRepository.save(drama)
     }
 
-    fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
-        dramas.filter { it.id == id }.first().let {
-            it.titulo = drama.titulo
-            it.anoLancamento = drama.anoLancamento
-            it.temporadas = drama.temporadas
-            it.quantidadeEpisodios = drama.quantidadeEpisodios
-            it.genero= drama.genero
-            it.plataforma = drama.plataforma
-
+    fun deleteDrama(id: Int) {
+        if (!dramaRepository.existsById(id)){
+            throw Exception()
         }
-    }
-
-    fun deleteDrama(@PathVariable id: Int) {
-        dramas.removeIf { it.id == id }
+        dramaRepository.deleteById(id)
     }
 }
