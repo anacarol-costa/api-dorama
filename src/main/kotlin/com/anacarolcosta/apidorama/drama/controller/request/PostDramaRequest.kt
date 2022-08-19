@@ -1,7 +1,7 @@
 package com.anacarolcosta.apidorama.drama.controller.request
 
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
-import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.plataforma.model.DramaModel
 
 data class PostDramaRequest (
     var titulo: String,
@@ -9,5 +9,5 @@ data class PostDramaRequest (
     var temporadas: Int,
     var quantidadeEpisodios: Int,
     var genero: GeneroModel,
-    var plataforma: PlataformaModel
+    var plataforma: DramaModel
 )

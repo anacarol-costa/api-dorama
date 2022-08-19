@@ -7,7 +7,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity(name = "plataforma")
-data class PlataformaModel(
+data class DramaModel(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

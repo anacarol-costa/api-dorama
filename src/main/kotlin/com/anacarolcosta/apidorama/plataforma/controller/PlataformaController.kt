@@ -3,7 +3,7 @@ package com.anacarolcosta.apidorama.controller
 import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.extension.toPlataformaModel
-import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.plataforma.model.DramaModel
 import com.anacarolcosta.apidorama.plataforma.service.PlataformaService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -24,12 +24,12 @@ class PlataformaController(
 ) {
 
     @GetMapping
-    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaModel> {
+    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<DramaModel> {
         return plataformaService.getAllPlataforma(nomePlataforma)
     }
 
     @GetMapping("/{id}")
-    fun getPlataforma(@PathVariable id: Int): PlataformaModel {
+    fun getPlataforma(@PathVariable id: Int): DramaModel {
         return plataformaService.getByIdPlataforma(id)
     }
 

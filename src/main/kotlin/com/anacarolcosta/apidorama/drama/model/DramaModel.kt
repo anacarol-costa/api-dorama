@@ -1,7 +1,7 @@
 package com.anacarolcosta.apidorama.drama.model
 
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
-import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.plataforma.model.DramaModel
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -34,5 +34,5 @@ data class DramaModel (
 
     @OneToOne
     @JoinColumn(name = "plataforma_id")
-    var plataforma: PlataformaModel? = null
+    var plataforma: DramaModel? = null
 )

@@ -3,6 +3,7 @@ package com.anacarolcosta.apidorama.drama.controller
 import com.anacarolcosta.apidorama.drama.controller.request.PostDramaRequest
 import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
 import com.anacarolcosta.apidorama.drama.model.DramaModel
+import com.anacarolcosta.apidorama.drama.service.DramaService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,52 +18,34 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("dramas")
-class DramaController {
-
-    val dramas = mutableListOf<DramaModel>()
-
+class DramaController(
+    private val dramaService: DramaService
+) {
     @GetMapping
     fun getAllDrama(@RequestParam titulo: String?): List<DramaModel> {
-        titulo?.let {
-            return dramas.filter { it.titulo.contains(titulo, ignoreCase = true) }
-        }
-        return dramas
+        return dramaService.getAllDrama(titulo)
     }
 
     @GetMapping("/{id}")
     fun getByIdDrama(@PathVariable id: Int): DramaModel {
-        return dramas.filter { it.id == id }.first()
+        return dramaService.getByIdDrama(id)
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createDrama(@RequestBody drama: PostDramaRequest) {
-        val id = if (dramas.isEmpty()) {
-            1
-        } else {
-            dramas.last().id!! + 1
-        }
-
-        dramas.add(DramaModel(id, drama.titulo, drama.anoLancamento, drama.temporadas, drama.quantidadeEpisodios, drama.genero, drama.plataforma))
+        dramaService.createDrama(drama)
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
-        dramas.filter { it.id == id }.first().let {
-            it.titulo = drama.titulo
-            it.anoLancamento = drama.anoLancamento
-            it.temporadas = drama.temporadas
-            it.quantidadeEpisodios = drama.quantidadeEpisodios
-            it.genero= drama.genero
-            it.plataforma = drama.plataforma
-
-        }
+      dramaService.updateDrama(id, drama)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteDrama(@PathVariable id: Int) {
-        dramas.removeIf { it.id == id }
+        return dramaService.deleteDrama(id)
     }
 }
