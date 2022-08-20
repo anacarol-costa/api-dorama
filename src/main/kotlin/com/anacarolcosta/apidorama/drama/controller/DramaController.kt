@@ -5,6 +5,8 @@ import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
 import com.anacarolcosta.apidorama.drama.model.DramaModel
 import com.anacarolcosta.apidorama.drama.service.DramaService
 import com.anacarolcosta.apidorama.extension.toDramaModel
+import com.anacarolcosta.apidorama.genero.service.GeneroService
+import com.anacarolcosta.apidorama.plataforma.service.PlataformaService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("dramas")
 class DramaController(
-    private val dramaService: DramaService
+    private val dramaService: DramaService,
+    private val generoService: GeneroService,
+    private val plataformaService: PlataformaService
 ) {
     @GetMapping
     fun getAllDrama(@RequestParam titulo: String?): List<DramaModel> {
@@ -34,14 +39,18 @@ class DramaController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createDrama(@RequestBody drama: PostDramaRequest) {
-        dramaService.createDrama(drama.toDramaModel())
+    fun createDrama(@RequestBody @Valid request: PostDramaRequest) {
+        val genero = generoService.findById(request.generoId)
+        val plataforma = plataformaService.findById(request.plataformaId)
+
+        dramaService.createDrama(request.toDramaModel(genero, plataforma))
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
-      dramaService.updateDrama(drama.toDramaModel(id))
+        val dramaSaved = dramaService.findById(id)
+        dramaService.updateDrama(drama.toDramaModel(dramaSaved))
     }
 
     @DeleteMapping("/{id}")

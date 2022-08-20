@@ -24,10 +24,14 @@ class DramaService(
         dramaRepository.save(drama)
     }
 
+    fun findById(id: Int): DramaModel {
+        return dramaRepository.findById(id).orElseThrow()
+    }
+
     fun updateDrama(drama: DramaModel) {
-        if (!dramaRepository.existsById(drama.id!!)){
-            throw Exception()
-        }
+//        if (!dramaRepository.existsById(drama.id!!)){
+//            throw Exception()
+//        }
        dramaRepository.save(drama)
     }
 

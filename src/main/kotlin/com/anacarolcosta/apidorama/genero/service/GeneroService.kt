@@ -1,5 +1,6 @@
 package com.anacarolcosta.apidorama.genero.service
 
+import com.anacarolcosta.apidorama.drama.model.DramaModel
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
 import com.anacarolcosta.apidorama.genero.repository.GeneroRepository
 import org.springframework.stereotype.Service
@@ -21,6 +22,10 @@ class GeneroService(
 
     fun createGenero(genero: GeneroModel) {
         generoRepository.save(genero)
+    }
+
+    fun findById(id: Int): GeneroModel {
+        return generoRepository.findById(id).orElseThrow()
     }
 
     fun updateGenero(genero: GeneroModel) {
