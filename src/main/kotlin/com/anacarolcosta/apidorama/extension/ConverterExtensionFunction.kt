@@ -17,7 +17,8 @@ fun PostDramaRequest.toDramaModel(genero: GeneroModel, plataforma: PlataformaMod
         temporadas = this.temporadas,
         quantidadeEpisodios = this.quantidadeEpisodios,
         genero = genero,
-        plataforma = plataforma)
+        plataforma = plataforma
+    )
 }
 
 fun PutDramaRequest.toDramaModel(previousValue: DramaModel): DramaModel {
@@ -28,7 +29,8 @@ fun PutDramaRequest.toDramaModel(previousValue: DramaModel): DramaModel {
         temporadas = this.temporadas,
         quantidadeEpisodios = this.quantidadeEpisodios,
         genero = previousValue.genero,
-        plataforma = previousValue.plataforma)
+        plataforma = previousValue.plataforma
+    )
 }
 
 fun PostGeneroRequest.toGeneroModel(): GeneroModel {
@@ -39,10 +41,10 @@ fun PutGeneroRequest.toGeneroModel(id: Int): GeneroModel {
     return GeneroModel(id = id, tipoGenero = this.tipoGenero)
 }
 
-fun PostPlataformaRequest.toPlataformaModel(): com.anacarolcosta.apidorama.plataforma.model.PlataformaModel {
-    return com.anacarolcosta.apidorama.plataforma.model.PlataformaModel(nomePlataforma = this.nomePlataforma)
+fun PostPlataformaRequest.toPlataformaModel(): PlataformaModel {
+    return PlataformaModel(nomePlataforma = this.nomePlataforma)
 }
 
-fun PutPlataformaRequest.toPlataformaModel(id: Int): com.anacarolcosta.apidorama.plataforma.model.PlataformaModel {
-    return com.anacarolcosta.apidorama.plataforma.model.PlataformaModel(id = id, nomePlataforma = this.nomePlataforma)
+fun PutPlataformaRequest.toPlataformaModel(id: Int): PlataformaModel {
+    return PlataformaModel(id = id, nomePlataforma = this.nomePlataforma)
 }

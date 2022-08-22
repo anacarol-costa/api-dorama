@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 
 @Entity(name = "drama")
@@ -28,11 +31,11 @@ data class DramaModel (
     @Column
     var quantidadeEpisodios: Int,
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "genero_id")
     var genero: GeneroModel? = null,
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "plataforma_id")
     var plataforma: PlataformaModel? = null
 )
