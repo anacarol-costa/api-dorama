@@ -1,6 +1,6 @@
 package com.anacarolcosta.apidorama.exception
 
-import com.anacarolcosta.apidorama.plataforma.controller.response.ErrorResponse
+import com.anacarolcosta.apidorama.exception.error.response.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice

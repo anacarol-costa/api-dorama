@@ -2,6 +2,8 @@ package com.anacarolcosta.apidorama.drama.service
 
 import com.anacarolcosta.apidorama.drama.model.DramaModel
 import com.anacarolcosta.apidorama.drama.repository.DramaRepository
+import com.anacarolcosta.apidorama.enums.Errors
+import com.anacarolcosta.apidorama.exception.NotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,7 +19,7 @@ class DramaService(
     }
 
     fun getByIdDrama(id: Int): DramaModel {
-        return dramaRepository.findById(id).orElseThrow()
+        return dramaRepository.findById(id).orElseThrow(){ NotFoundException( Errors.ML2001.message.format(id), Errors.ML2001.code) }
     }
 
     fun createDrama(drama: DramaModel) {

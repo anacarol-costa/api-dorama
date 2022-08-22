@@ -1,6 +1,8 @@
 package com.anacarolcosta.apidorama.genero.service
 
 import com.anacarolcosta.apidorama.drama.model.DramaModel
+import com.anacarolcosta.apidorama.enums.Errors
+import com.anacarolcosta.apidorama.exception.NotFoundException
 import com.anacarolcosta.apidorama.genero.model.GeneroModel
 import com.anacarolcosta.apidorama.genero.repository.GeneroRepository
 import org.springframework.stereotype.Service
@@ -17,7 +19,7 @@ class GeneroService(
     }
 
     fun getByIdGenero(id: Int): GeneroModel {
-        return generoRepository.findById(id).orElseThrow()
+        return generoRepository.findById(id).orElseThrow(){ NotFoundException( Errors.ML3001.message.format(id), Errors.ML3001.code) }
     }
 
     fun createGenero(genero: GeneroModel) {

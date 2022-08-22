@@ -1,4 +1,4 @@
-package com.anacarolcosta.apidorama.plataforma.controller.response
+package com.anacarolcosta.apidorama.exception.error.response
 
 data class ErrorResponse (
     var httpCode: Int,
