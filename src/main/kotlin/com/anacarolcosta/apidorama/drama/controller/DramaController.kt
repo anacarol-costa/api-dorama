@@ -49,7 +49,7 @@ class DramaController(
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
-        val dramaSaved = dramaService.findById(id)
+        val dramaSaved = dramaService.findById(id = id)
         dramaService.updateDrama(drama.toDramaModel(dramaSaved))
     }
 

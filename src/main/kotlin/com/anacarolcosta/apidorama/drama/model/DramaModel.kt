@@ -29,7 +29,7 @@ data class DramaModel (
     var temporadas: Int,
 
     @Column
-    var quantidadeEpisodios: Int,
+    var quantidadeEpisodios: Int? = null,
 
     @ManyToOne
     @JoinColumn(name = "genero_id")
