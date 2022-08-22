@@ -2,6 +2,11 @@ package com.anacarolcosta.apidorama.enums
 
 enum class Errors( val code: String, val message: String) {
 
+    ML0001(
+        "ML-0001",
+        "Requisição inválida!"
+    ),
+
     //Plataforma (1001 a 1999) | Drama (2001 a 2999) | Genero (3001 a 3999)
 
     ML1001(
