@@ -5,6 +5,7 @@ import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaR
 import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import com.anacarolcosta.apidorama.plataforma.service.PlataformaService
+import com.anacarolcosta.apidorama.plataforma.validation.PlataformaAvailable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
