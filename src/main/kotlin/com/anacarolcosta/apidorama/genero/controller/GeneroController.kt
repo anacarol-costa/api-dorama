@@ -9,6 +9,7 @@ import com.anacarolcosta.apidorama.genero.model.GeneroModel
 import com.anacarolcosta.apidorama.genero.service.GeneroService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("generos")
@@ -27,7 +28,7 @@ class GeneroController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createGenero(@RequestBody genero: PostGeneroRequest) {
+    fun createGenero(@RequestBody @Valid genero: PostGeneroRequest) {
         generoService.createGenero(genero.toGeneroModel())
     }
 

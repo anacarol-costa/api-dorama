@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("plataformas")
@@ -35,7 +36,7 @@ class PlataformaController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createPlataforma(@RequestBody plataforma: PostPlataformaRequest) {
+    fun createPlataforma(@RequestBody @Valid plataforma: PostPlataformaRequest) {
         plataformaService.createPlataforma(plataforma.toPlataformaModel())
     }
 
