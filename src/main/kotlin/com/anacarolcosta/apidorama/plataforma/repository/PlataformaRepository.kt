@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface PlataformaRepository: CrudRepository<PlataformaModel, Int> {
 
     fun findByNomePlataformaContaining(nomePlataforma: String): List<PlataformaModel>
+
+    fun existsByNomePlataforma(nomePlataforma: String): Boolean
 }

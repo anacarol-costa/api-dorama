@@ -1,6 +1,5 @@
 package com.anacarolcosta.apidorama.plataforma.service
 
-import com.anacarolcosta.apidorama.drama.model.DramaModel
 import com.anacarolcosta.apidorama.exception.NotFoundException
 import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
 import com.anacarolcosta.apidorama.plataforma.repository.PlataformaRepository
@@ -42,5 +41,9 @@ class PlataformaService(
             throw Exception()
         }
         plataformaRepository.deleteById(id)
+    }
+
+    fun plataformaAvailable(nomePlataforma: String): Boolean {
+        return !plataformaRepository.existsByNomePlataforma(nomePlataforma)
     }
 }
