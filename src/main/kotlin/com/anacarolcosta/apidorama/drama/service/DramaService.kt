@@ -43,4 +43,8 @@ class DramaService(
         }
         dramaRepository.deleteById(id)
     }
+
+    fun dramaAvailable(titulo: String): Boolean {
+        return !dramaRepository.existsByTitulo(titulo)
+    }
 }

@@ -1,5 +1,6 @@
 package com.anacarolcosta.apidorama.drama.controller.request
 
+import com.anacarolcosta.apidorama.drama.validation.DramaAvailable
 import com.fasterxml.jackson.annotation.JsonAlias
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull
 data class PostDramaRequest (
 
     @field:NotEmpty(message = "Título deve ser informado")
+    @DramaAvailable
     var titulo: String,
 
     @field:NotNull(message = "Ano de lançamento deve ser informado")
