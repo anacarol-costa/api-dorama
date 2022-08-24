@@ -1,14 +1,14 @@
 package com.anacarolcosta.apidorama.extension
 
-import com.anacarolcosta.apidorama.drama.controller.request.PostDramaRequest
-import com.anacarolcosta.apidorama.drama.controller.request.PutDramaRequest
-import com.anacarolcosta.apidorama.drama.model.DramaModel
-import com.anacarolcosta.apidorama.genero.controller.request.PostGeneroRequest
-import com.anacarolcosta.apidorama.genero.controller.request.PutGeneroRequest
-import com.anacarolcosta.apidorama.genero.model.GeneroModel
-import com.anacarolcosta.apidorama.plataforma.controller.request.PostPlataformaRequest
-import com.anacarolcosta.apidorama.plataforma.controller.request.PutPlataformaRequest
-import com.anacarolcosta.apidorama.plataforma.model.PlataformaModel
+import com.anacarolcosta.apidorama.controller.request.PostDramaRequest
+import com.anacarolcosta.apidorama.controller.request.PutDramaRequest
+import com.anacarolcosta.apidorama.model.DramaModel
+import com.anacarolcosta.apidorama.controller.request.PostGeneroRequest
+import com.anacarolcosta.apidorama.controller.request.PutGeneroRequest
+import com.anacarolcosta.apidorama.model.GeneroModel
+import com.anacarolcosta.apidorama.controller.request.PostPlataformaRequest
+import com.anacarolcosta.apidorama.controller.request.PutPlataformaRequest
+import com.anacarolcosta.apidorama.model.PlataformaModel
 
 fun PostDramaRequest.toDramaModel(genero: GeneroModel, plataforma: PlataformaModel): DramaModel {
     return DramaModel(
