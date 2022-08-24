@@ -8,6 +8,7 @@ import com.anacarolcosta.apidorama.controller.request.PutGeneroRequest
 import com.anacarolcosta.apidorama.model.GeneroModel
 import com.anacarolcosta.apidorama.controller.request.PostPlataformaRequest
 import com.anacarolcosta.apidorama.controller.request.PutPlataformaRequest
+import com.anacarolcosta.apidorama.controller.response.PlataformaResponse
 import com.anacarolcosta.apidorama.model.PlataformaModel
 
 fun PostDramaRequest.toDramaModel(genero: GeneroModel, plataforma: PlataformaModel): DramaModel {
@@ -47,4 +48,11 @@ fun PostPlataformaRequest.toPlataformaModel(): PlataformaModel {
 
 fun PutPlataformaRequest.toPlataformaModel(id: Int): PlataformaModel {
     return PlataformaModel(id = id, nomePlataforma = this.nomePlataforma)
+}
+
+fun PlataformaModel.toResponse(): PlataformaResponse {
+    return PlataformaResponse(
+        id = this.id,
+        nomePlataforma = this.nomePlataforma
+    )
 }

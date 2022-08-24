@@ -3,6 +3,8 @@ package com.anacarolcosta.apidorama.controller
 import com.anacarolcosta.apidorama.extension.toPlataformaModel
 import com.anacarolcosta.apidorama.controller.request.PostPlataformaRequest
 import com.anacarolcosta.apidorama.controller.request.PutPlataformaRequest
+import com.anacarolcosta.apidorama.controller.response.PlataformaResponse
+import com.anacarolcosta.apidorama.extension.toResponse
 import com.anacarolcosta.apidorama.model.PlataformaModel
 import com.anacarolcosta.apidorama.service.PlataformaService
 import org.springframework.http.HttpStatus
@@ -25,8 +27,8 @@ class PlataformaController(
 ) {
 
     @GetMapping
-    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaModel> {
-        return plataformaService.getAllPlataforma(nomePlataforma)
+    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaResponse> {
+        return plataformaService.getAllPlataforma(nomePlataforma).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
