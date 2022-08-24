@@ -43,4 +43,8 @@ class GeneroService(
         }
         generoRepository.deleteById(id)
     }
+
+    fun generoAvaible(tipoGenero: String): Boolean {
+        return !generoRepository.existsByTipoGenero(tipoGenero)
+    }
 }
