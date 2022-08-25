@@ -26,7 +26,7 @@ class GeneroService(
     }
 
     fun findById(id: Int): GeneroModel {
-        return generoRepository.findById(id).orElseThrow()
+        return generoRepository.findById(id).orElseThrow(){ NotFoundException( Errors.ML3001.message.format(id), Errors.ML3001.code) }
     }
 
     fun updateGenero(genero: GeneroModel) {

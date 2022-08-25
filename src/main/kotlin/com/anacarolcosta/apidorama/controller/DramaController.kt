@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.util.Objects
 import javax.validation.Valid
 
 @RestController
@@ -28,8 +29,8 @@ class DramaController(
     private val plataformaService: PlataformaService
 ) {
     @GetMapping
-    fun getAllDrama(@RequestParam titulo: String?): List<DramaModel> {
-        return dramaService.getAllDrama(titulo)
+    fun getAllDrama(): List<DramaModel> {
+        return dramaService.getAllDrama()
     }
 
     @GetMapping("/{id}")
@@ -48,9 +49,14 @@ class DramaController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateDrama(@PathVariable id: Int, @RequestBody drama: PutDramaRequest) {
+    fun updateDrama(@PathVariable id: Int, @RequestBody @Valid drama: PutDramaRequest) {
         val dramaSaved = dramaService.findById(id = id)
-        dramaService.updateDrama(drama.toDramaModel(dramaSaved))
+        val plataforma = plataformaService.findById(drama.plataformaId)
+        val genero = generoService.findById(drama.generoId)
+
+        if(Objects.isNull(dramaSaved)) throw Exception("Drama não existe.")
+
+        dramaService.updateDrama(drama.toDramaModel(genero, plataforma))
     }
 
     @DeleteMapping("/{id}")

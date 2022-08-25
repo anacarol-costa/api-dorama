@@ -1,5 +1,8 @@
 package com.anacarolcosta.apidorama.controller.request
 
+import com.anacarolcosta.apidorama.model.DramaModel
+import com.anacarolcosta.apidorama.model.GeneroModel
+import com.anacarolcosta.apidorama.model.PlataformaModel
 import com.fasterxml.jackson.annotation.JsonAlias
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -23,4 +26,17 @@ data class PutDramaRequest (
 
     @JsonAlias("plataforma_id")
     var plataformaId: Int
-)
+) {
+
+    fun toDramaModel(genero: GeneroModel, plataforma: PlataformaModel): DramaModel {
+        return DramaModel(null,
+            titulo,
+            anoLancamento,
+            temporadas,
+            quantidadeEpisodios,
+            genero,
+            plataforma
+        )
+    }
+
+}

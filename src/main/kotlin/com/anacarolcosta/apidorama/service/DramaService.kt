@@ -11,10 +11,7 @@ class DramaService(
     private val dramaRepository: DramaRepository
 ) {
 
-    fun getAllDrama(titulo: String?): List<DramaModel> {
-        titulo?.let {
-            return dramaRepository.findByTituloContaining(it)
-        }
+    fun getAllDrama(): List<DramaModel> {
         return dramaRepository.findAll().toList()
     }
 
