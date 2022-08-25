@@ -10,10 +10,7 @@ import com.anacarolcosta.apidorama.enums.Errors
 class PlataformaService(
     private val plataformaRepository: PlataformaRepository
 ) {
-    fun getAllPlataforma(nomePlataforma: String?): List<PlataformaModel>{
-        nomePlataforma?.let {
-            return plataformaRepository.findByNomePlataformaContaining(it)
-        }
+    fun getAllPlataforma(): List<PlataformaModel>{
         return plataformaRepository.findAll().toList()
     }
 

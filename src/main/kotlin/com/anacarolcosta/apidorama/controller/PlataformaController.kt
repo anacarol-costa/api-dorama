@@ -27,8 +27,8 @@ class PlataformaController(
 ) {
 
     @GetMapping
-    fun getAllPlataforma(@RequestParam nomePlataforma: String?): List<PlataformaResponse> {
-        return plataformaService.getAllPlataforma(nomePlataforma).map { it.toResponse() }
+    fun getAllPlataforma(): List<PlataformaModel> {
+        return plataformaService.getAllPlataforma()
     }
 
     @GetMapping("/{id}")
