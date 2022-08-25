@@ -15,8 +15,8 @@ class GeneroController(
     private val generoService: GeneroService
 ) {
     @GetMapping
-    fun getAllGenero(@RequestParam tipoGenero: String?): List<GeneroModel> {
-        return generoService.getAllGenero(tipoGenero)
+    fun getAllGenero(): List<GeneroModel> {
+        return generoService.getAllGenero()
     }
 
     @GetMapping("/{id}")

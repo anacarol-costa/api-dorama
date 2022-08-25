@@ -28,9 +28,6 @@ class DramaService(
     }
 
     fun updateDrama(drama: DramaModel) {
-//        if (!dramaRepository.existsById(drama.id!!)){
-//            throw Exception()
-//        }
        dramaRepository.save(drama)
     }
 

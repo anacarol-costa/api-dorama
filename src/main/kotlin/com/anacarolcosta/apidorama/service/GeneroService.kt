@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service
 class GeneroService(
     private val generoRepository: GeneroRepository
 ) {
-    fun getAllGenero(tipoGenero: String?): List<GeneroModel> {
-        tipoGenero?.let {
-            return generoRepository.findByTipoGeneroContaining(it)
-        }
+    fun getAllGenero(): List<GeneroModel> {
         return generoRepository.findAll().toList()
     }
 
